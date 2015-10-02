@@ -1,0 +1,9 @@
+<a ng-href="#home">Back</a>
+
+<div ng-click="nextPage(movie)"><img ng-src="{{movie.image}}"></div>
+
+	<p>{{movie.title}}</p>
+	<button ng-click="movie.watch=true" ng-hide="movie.watch">Add to watchlist</button>
+	<button ng-click="movie.watch=fasle" ng-show="movie.watch">Added for Watching</button>
+	<p> Realase Date   {{movie.date | date:'MMMM d,yyyy'}} </p>
+	<p> Run Time  {{movie.run_time/3600 | number:0}}hrs {{(movie.run_time%3600)/60 | number:0}}mins</p>

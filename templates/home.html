@@ -1,0 +1,61 @@
+<div class="container">
+
+ <div class="row">
+<form class="form-horizontal">
+  <div class="form-group">
+    <div class="col-md-12">
+      <input type="text" class="form-control col-md-12" ng-keydown="startPage=0" ng-model="query" placeholder="Search">
+    </div>
+  </div>
+</form>
+</div>
+    	
+<hr>  
+
+<div class="row">
+	<div class="col-md-4"></div>
+	
+	<div class="col-md-4">
+		<p>{{startPage+1}}-{{(startPage+5>=(movies|filter:query).length)?((movies|filter:query).length):(startPage+5)}} of {{(movies|filter:query).length}}</p>
+	</div>
+
+	<div class="col-md-4">
+		<select ng-model="sortOrder">
+			<option value="date">Date</option>
+			<option value="title">Name</option>
+		</select>
+
+		<div class="{{arrow}}" ng-click="arrowChange()"></div>
+{{sortOrder}}
+	</div>
+
+<hr> 
+
+
+
+<div class="row">
+
+<div ng-repeat="movie in movies |filter:query | limitTo:5:startPage| orderBy:sortDirect+sortOrder">
+	<div ng-click="nextPage(movie)"><img ng-src="{{movie.image}}"></div>
+	
+	
+	<p>{{movie.title}}</p>
+	<button ng-click="movie.watch=true" ng-hide="movie.watch">Add to watchlist</button>
+	<button ng-click="movie.watch=fasle" ng-show="movie.watch">Added for Watching</button>
+	
+
+
+	<p> Realase Date   {{movie.date | date:'MMMM d,yyyy'}} </p>
+	<p> Run Time  {{movie.run_time/3600 | number:0}}hrs {{(movie.run_time%3600)/60 | number:0}}mins</p>
+	
+</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4"></div>
+
+	<div class="col-md-4">
+		<button ng-disabled="startPage<=0" ng-click="startPage=startPage-5">Previous</button> <button ng-disabled="startPage>=((movies|filter:query).length-5)" ng-click="startPage=startPage+5">Next</button>
+	</div>
+</div>
+</div>
